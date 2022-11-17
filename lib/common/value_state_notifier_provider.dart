@@ -15,10 +15,15 @@ class ValueStateNotifierProviderBuilder {
     String? name,
   }) {
     return StateNotifierProvider<ValueStateNotifier<T>, T>(
-      (ref) => ValueStateNotifier<T>(
-        initialValueFn(ref),
-        valueChanged: valueChanged,
-      ),
+      (ref) {
+        // If initialValueFn has ref watch, listenSelf will be triggered to call by dependencies,
+        // even if the value is not updated.
+        // if (valueChanged != null) ref.listenSelf((previous, next) => valueChanged(next));
+        return ValueStateNotifier<T>(
+          initialValueFn(ref),
+          valueChanged: valueChanged,
+        );
+      },
       name: name,
     );
   }
@@ -38,4 +43,8 @@ class ValueStateNotifier<T> extends StateNotifier<T> {
     valueChanged?.call(value);
     return state = value;
   }
+}
+
+extension StateControllerValueExtension<T> on StateController<T> {
+  T change(T value) => state = value;
 }
