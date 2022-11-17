@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../pages/home/home_page.dart';
+import '../pages/settings/settings_page.dart';
 import '../pages/splash/splash_page.dart';
 
 part 'pages.dart';
@@ -20,5 +21,10 @@ final List<GoRoute> routes = [
     path: Pages.home,
     transition: PageTransition.scale,
     builder: (context, state) => const HomePage(),
+  ),
+  TransitionRoute(
+    path: Pages.settings,
+    transition: PageTransition.fade,
+    builder: (context, state) => const SettingsPage(),
   ),
 ];

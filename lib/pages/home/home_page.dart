@@ -1,5 +1,7 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../router/router.dart';
 import '../../widgets/common/luo_scaffold.dart';
 
 class HomePage extends StatelessWidget {
@@ -7,9 +9,19 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const LuoScaffold(
+    return LuoScaffold(
       child: Center(
-        child: Text('Hello XiaoHei'),
+        child: Column(
+          children: [
+            const Text('Hello XiaoHei'),
+            ElevatedButton(
+              onPressed: () {
+                context.push(Pages.settings);
+              },
+              child: const Text('Push Settings Page'),
+            ),
+          ],
+        ),
       ),
     );
   }
