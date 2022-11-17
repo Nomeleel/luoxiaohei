@@ -1,31 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../preferences/provider.dart';
+import 'extension.dart';
 import 'platform_brightness_provider.dart';
 import 'theme.dart';
 
-final useSystemThemeModeProvider = StateProvider<bool>(
-  (ref) {
-    // TODO: From sp.
-    return false;
-  },
-  name: 'UseSystemThemeModeProvider',
+final useSystemThemeModeProvider = createProviderWithPreferences(
+  'useSystemThemeMode',
+  false,
+  providerName: 'UseSystemThemeModeProvider',
 );
 
-final useLightThemeModeProvider = StateProvider<bool>(
-  (ref) {
-    // TODO: From sp.
-    return true;
-  },
-  name: 'UseLightThemeModeProvider',
+final useLightThemeModeProvider = createProviderWithPreferences(
+  'useLightThemeMode',
+  true,
+  providerName: 'UseLightThemeModeProvider',
 );
 
-// TODO: move color config.
-final colorSchemeSeedProvider = StateProvider<Color>(
-  (ref) {
-    return Colors.purple;
-  },
-  name: 'ColorSchemeSeedProvider',
+final colorSchemeSeedProvider = createProviderWithPreferences<Color>(
+  'colorSchemeSeed',
+  Colors.purple,
+  providerName: 'ColorSchemeSeedProvider',
 );
 
 final themeProvider = StateProvider<ThemeData>(
@@ -33,7 +29,7 @@ final themeProvider = StateProvider<ThemeData>(
     bool useLightThemeMode = ref.watch(useLightThemeModeProvider);
 
     if (ref.watch(useSystemThemeModeProvider)) {
-      useLightThemeMode = ref.watch(platformBrightnessProvider) == Brightness.light;
+      useLightThemeMode = ref.watch(platformBrightnessProvider).isLight;
     }
 
     return ThemeDataFactory(
