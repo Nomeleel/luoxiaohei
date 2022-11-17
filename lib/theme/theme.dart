@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'extension.dart';
+
 class ThemeDataFactory {
   const ThemeDataFactory(
     this.useLightThemeMode,
@@ -11,7 +13,7 @@ class ThemeDataFactory {
 
   ThemeData create() {
     return ThemeData(
-      brightness: useLightThemeMode ? Brightness.light : Brightness.dark,
+      brightness: BrightnessExtension.resolve(useLightThemeMode),
       useMaterial3: true,
       colorSchemeSeed: colorSchemeSeed,
     );
