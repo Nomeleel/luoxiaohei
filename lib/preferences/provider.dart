@@ -3,18 +3,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../common/value_state_notifier_provider.dart';
 import '../preferences/shared_preferences.dart';
 
-/// [valueChanged] will only be called when the state value changes, 
-/// but [listenSelf] will also be called when the provider it watches. 
+/// [valueChanged] will only be called when the state value changes,
+/// but [listenSelf] will also be called when the provider it watches.
 /// If there is no watch, the two create function are equivalent.
 
 StateProvider<T> createProviderWithPreferences<T>(
   String preferencesKey,
   T defaultValue, {
   String? providerName,
+  bool listenImmediately = false,
 }) {
   return StateProvider(
     (ref) {
-      ref.listenSelf((previous, next) => preferences.setValue<T>(preferencesKey, next));
+      ref.listenSelf((previous, next) {
+        if (listenImmediately) {
+          if (!identical(previous, next)) preferences.setValue<T>(preferencesKey, next);
+        } else {
+          listenImmediately = true;
+        }
+      });
       return (preferences.getValue<T>(preferencesKey) ?? defaultValue);
     },
     name: providerName,
