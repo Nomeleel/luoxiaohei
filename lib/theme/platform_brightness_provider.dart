@@ -7,16 +7,16 @@ final platformBrightnessProvider = StateProvider<Brightness>(
     final widgetsBinding = WidgetsBinding.instance;
 
     VoidCallback addObserver(WidgetsBindingObserver observer) {
-      widgetsBinding.addObserver(observer);
+      widgetsBinding
+        ..removeObserver(observer)
+        ..addObserver(observer);
       return () => widgetsBinding.removeObserver(observer);
     }
 
     ref.onDispose(
       addObserver(
         _PlatformBrightnessObserver(
-          onPlatformBrightnessChanged: (brightness) {
-            ref.read(platformBrightnessProvider.notifier).state = brightness;
-          },
+          onPlatformBrightnessChanged: (brightness) => ref.controller.state = brightness,
         ),
       ),
     );
