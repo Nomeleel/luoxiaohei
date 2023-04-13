@@ -1,14 +1,13 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../router/router.dart';
 
-final appProvider = Provider(
-  (ref) => const AppProvider(),
-  name: 'AppProvider',
-);
+part 'app_provider.g.dart';
 
-class AppProvider {
-  const AppProvider();
+@riverpod
+class AppInit extends _$AppInit {
+  @override
+  void build() {}
 
   void init() {
     Future.delayed(const Duration(seconds: 2), () {

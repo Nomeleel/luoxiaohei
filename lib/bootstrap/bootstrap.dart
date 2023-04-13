@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'error_handler.dart';
 
@@ -9,9 +10,9 @@ Future<void> bootstrap(
   Widget rootWidget,
 ) async {
   ErrorHandler.instance.errorHandle();
+  WidgetsFlutterBinding.ensureInitialized();
 
   await init();
 
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(rootWidget);
+  runApp(ProviderScope(child: rootWidget));
 }
