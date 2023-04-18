@@ -6,6 +6,8 @@ import 'extension.dart';
 import 'platform_brightness_provider.dart';
 import 'theme.dart';
 
+// part 'theme_provider.g.dart';
+
 final useSystemThemeModeProvider = createProviderWithPreferences(
   'useSystemThemeMode',
   false,
@@ -39,3 +41,31 @@ final themeProvider = StateProvider<ThemeData>(
   },
   name: 'ThemeProvider',
 );
+
+/*
+@riverpod
+bool useSystemThemeMode(UseSystemThemeModeRef ref) =>
+    ref.watch(createPreferencesProvider('useSystemThemeMode', false)) as bool;
+
+@riverpod
+bool useLightThemeMode(UseLightThemeModeRef ref) =>
+    ref.watch(createPreferencesProvider('useLightThemeMode', false)) as bool;
+
+@riverpod
+Color colorSchemeSeed(ColorSchemeSeedRef ref) =>
+    ref.watch(createPreferencesProvider('colorSchemeSeed', Colors.purple)) as Color;
+
+@riverpod
+ThemeData theme(ThemeRef ref) {
+  bool useLightThemeMode = ref.watch(useLightThemeModeProvider);
+
+  if (ref.watch(useSystemThemeModeProvider)) {
+    useLightThemeMode = ref.watch(platformBrightnessProvider).isLight;
+  }
+
+  return ThemeDataFactory(
+    useLightThemeMode,
+    ref.watch(colorSchemeSeedProvider),
+  ).create();
+}
+*/
