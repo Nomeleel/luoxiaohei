@@ -7,6 +7,7 @@ import '../pages/splash/splash_page.dart';
 
 part 'pages.dart';
 part 'route.dart';
+part 'router_redirect.dart';
 
 final GoRouter router = GoRouter(
   routes: routes,
