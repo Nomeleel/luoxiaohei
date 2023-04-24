@@ -12,7 +12,7 @@ class HeiApp extends ConsumerWidget {
     return MaterialApp.router(
       title: 'LuoXiaoHei',
       theme: ref.watch(themeProvider),
-      routerConfig: router,
+      routerConfig: ref.watch(routerProvider),
     );
   }
 }

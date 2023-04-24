@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../auth/auth_provider.dart';
 import '../pages/home/home_page.dart';
 import '../pages/settings/settings_page.dart';
 import '../pages/splash/splash_page.dart';
@@ -9,9 +11,14 @@ part 'pages.dart';
 part 'route.dart';
 part 'router_redirect.dart';
 
-final GoRouter router = GoRouter(
-  routes: routes,
-);
+final routerProvider = Provider((ref) {
+  final routerRedirect = ref.read(routerRedirectProvider);
+  return GoRouter(
+    refreshListenable: routerRedirect,
+    redirect: routerRedirect._redirect,
+    routes: routes,
+  );
+});
 
 final List<GoRoute> routes = [
   GoRoute(

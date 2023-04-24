@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../auth/auth_provider.dart';
 import '../router/router.dart';
 
 part 'app_provider.g.dart';
@@ -11,7 +12,8 @@ class AppInit extends _$AppInit {
 
   void init() {
     Future.delayed(const Duration(seconds: 2), () {
-      router.go(Pages.home);
+      ref.read(authProvider.notifier).login();
+      ref.read(routerProvider).go(Pages.home);
     });
   }
 }
