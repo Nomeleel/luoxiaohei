@@ -43,7 +43,8 @@ StateNotifierProvider<ValueStateNotifier<T>, T> createValueProviderWithPreferenc
 }
 
 /*
-// TODO: Cannot generate <T> ！！！
+// TODO(riverpod): Cannot generate [StateProvider]. See https://github.com/rrousselGit/riverpod/blob/master/packages/riverpod_generator/lib/src/templates/stateless_provider.dart#L36-L45
+// TODO(riverpod): Cannot generate <T> ！！！
 @Riverpod(keepAlive: true)
 dynamic createPreferences(
   CreatePreferencesRef ref,
@@ -59,5 +60,33 @@ dynamic createPreferences(
     }
   });
   return (preferences.getValue(preferencesKey) ?? defaultValue);
+}
+*/
+
+/*
+// TODO(riverpod): Cannot generate <T> ！！！
+@riverpod
+class CreatePreferences extends _$CreatePreferences {
+  @override
+  dynamic build(
+    String preferencesKey,
+    dynamic defaultValue, {
+    bool listenImmediately = false,
+  }) {
+    ref.listenSelf((previous, next) {
+      if (listenImmediately) {
+        if (!identical(previous, next)) preferences.setValue(preferencesKey, next);
+      } else {
+        listenImmediately = true;
+      }
+    });
+    return (preferences.getValue(preferencesKey) ?? defaultValue);
+  }
+}
+
+// ignore: invalid_use_of_internal_member
+mixin NotifierControllerMixin<T> on BuildlessNotifier<T> {
+  T change(T value) => state = value;
+  T update(T Function(T state) cb) => state = cb(state);
 }
 */
