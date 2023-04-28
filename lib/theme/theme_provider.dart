@@ -46,19 +46,19 @@ final themeProvider = StateProvider<ThemeData>(
 @Riverpod(keepAlive: true)
 class UseSystemThemeMode extends _$UseSystemThemeMode with NotifierControllerMixin {
   @override
-  bool build() => ref.read(createPreferencesProvider('useSystemThemeMode', false).notifier) as bool;
+  bool build() => ref.watch(createPreferencesProvider('useSystemThemeMode', false)) as bool;
 }
 
 @Riverpod(keepAlive: true)
 class UseLightThemeMode extends _$UseLightThemeMode with NotifierControllerMixin {
   @override
-  bool build() => ref.read(createPreferencesProvider('useLightThemeMode', false).notifier) as bool;
+  bool build() => ref.watch(createPreferencesProvider('useLightThemeMode', false)) as bool;
 }
 
 @Riverpod(keepAlive: true)
 class ColorSchemeSeed extends _$ColorSchemeSeed with NotifierControllerMixin {
   @override
-  Color build() => ref.read(createPreferencesProvider('colorSchemeSeed', Colors.purple).notifier) as Color;
+  Color build() => ref.watch(createPreferencesProvider('colorSchemeSeed', Colors.purple)) as Color;
 }
 */
 

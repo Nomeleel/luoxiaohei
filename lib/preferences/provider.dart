@@ -65,7 +65,7 @@ dynamic createPreferences(
 
 /*
 // TODO(riverpod): Cannot generate <T> ！！！
-@riverpod
+@Riverpod(keepAlive: true)
 class CreatePreferences extends _$CreatePreferences {
   @override
   dynamic build(
